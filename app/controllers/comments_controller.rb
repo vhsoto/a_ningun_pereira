@@ -16,6 +16,22 @@ class CommentsController < ApplicationController
     end
   end
 
+  def update
+    @complaint = Complaint.find(params[:complaint_id])
+    @comment = @complaint.comments.update(comment_params)
+    @comment.user = current_user
+    authorize @comment
+    if @comment.update
+      flash[:notice] = "Se actualizó con éxito"
+    else
+      flash[:error] = "Hubo un error al actualizar la queja. Intenta nuevamente."      
+    end
+    respond_with(@comment) do |format|
+      format.html {redirect_to @complaint}
+    end
+  end
+
+
   def destroy
     @complaint = Complaint.find(params[:complaint_id])
     @comment = @complaint.comments.find(params[:id])

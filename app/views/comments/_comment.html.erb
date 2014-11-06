@@ -1,8 +1,26 @@
-<div class="media" id="comment-<%= comment.id %>">
-	<div class="media-body">
-		<p><%= image_tag comment.user.avatar.thumb.url, class: "img foto-perfil" %> <%= comment.body %></p>
-		<% if policy(comment).destroy? %>
-		<%= link_to "borrar", [@complaint, comment] , data: {confirm: "Estas seguro de borrar el comentario?"}, method: :delete, remote: true %>
-		<% end %>
-	</div>
+<div class="panel panel-default" id="comment-<%= comment.id %>">
+  <div class="panel-body">
+  	<div class="col-md-1">
+  		<%= image_tag comment.user.avatar.thumb.url, class: "img foto-perfil" %>
+  	</div>
+  	<div class="col-md-11">
+  		<p class="pull-right">
+		  		<% if policy(comment).destroy? %>
+						<%= link_to [@complaint, comment] , data: {confirm: "Estas seguro de borrar el comentario?"}, method: :delete, remote: true do %>
+							<i class="fa fa-trash"></i>
+						<% end %>
+				<% end %>
+				<% if policy(comment).update? %>
+						<%= link_to [@complaint, comment] , method: :get, remote: true do %>
+							<i class="fa fa-pencil"></i>
+						<% end %>
+				<% end %>
+			</p>
+  		<p>
+  			<small><strong><%= comment.user.name %></strong></small> comentó hace <%= time_ago_in_words(comment.created_at) %>
+  		</p>
+  		<p><%= comment.body %></p>  		
+  	</div>   
+  </div> 
 </div>
+

@@ -15,9 +15,9 @@
 		      	<% end %>		      
 		    </div>
 
-	    	<ul class="nav navbar-nav">	    		
-	    		<li><%= link_to "Nosotros", welcome_about_path %></li>
+	    	<ul class="nav navbar-nav">	    		    		
 	    		<li><%= link_to "Quejas", complaints_path %></li>
+	    		<li><%= link_to "Nosotros", welcome_about_path %></li>
 	    	</ul>
 	    	<ul class="nav navbar-nav navbar-right">
 	    	<% if current_user %>	
@@ -32,7 +32,7 @@
 	    	    	<%= link_to destroy_user_session_path, method: :delete, data: {confirm: "Estás Seguro de Salir?"} do %>
 	    				Salir <i class="fa fa-sign-out"></i>	    					
 	    				<% end %>
-	    			</p>
+	    		</p>
 	    	<% else %>	
 	    		<li><%= link_to "Regístrate", new_user_registration_path %></li>
 	    		<li><%= link_to "Ingresa", new_user_session_path %></li>
