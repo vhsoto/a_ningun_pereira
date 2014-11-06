@@ -1,0 +1,8 @@
+<div class="media" id="comment-<%= comment.id %>">
+	<div class="media-body">
+		<p><%= image_tag comment.user.avatar.thumb.url, class: "img foto-perfil" %> <%= comment.body %></p>
+		<% if policy(comment).destroy? %>
+		<%= link_to "borrar", [@complaint, comment] , data: {confirm: "Estas seguro de borrar el comentario?"}, method: :delete, remote: true %>
+		<% end %>
+	</div>
+</div>

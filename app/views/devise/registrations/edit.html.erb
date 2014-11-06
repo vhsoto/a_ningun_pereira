@@ -1,0 +1,69 @@
+<div class="main">
+  <h2>Configuración de la cuenta</h2>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+      <h3>Cambia el email o la contraseña</h3>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :patch }) do |f| %>
+        <%= devise_error_messages! %>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: 'form-control', placeholder: "Ingresa tu email" %>
+        </div>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="form-group">
+            <p>Esperando confirmación de:</p>
+            <%= resource.unconfirmed_email %>
+          </div>
+        <% end %>
+        <div class="form-group">
+          <%= f.label :password , "Nueva contraseña" %>
+          <%= f.password_field :password, class: 'form-control', placeholder: "Ingresa la nueva contraseña" %>
+          <i>(Déjala en blanco si no quieres cambiarla)</i>
+        </div>
+        
+        <div class="form-group">
+          <%= f.password_field :current_password, class: 'form-control', placeholder: "Ingresa tu contraseña actual" %>
+          <i>(Necesitamos tu contraseña actual para realizar los cambios)</i>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Actualizar", class: 'btn btn-success' %>
+        </div>
+      <% end %>
+
+      <h3>Editar información personal</h3>
+      <%= form_for(current_user) do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control', placeholder: "Enter name", autofocus: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :avatar, class: "control-label" %>
+          <%= f.file_field :avatar %>
+          <%= f.hidden_field :avatar_cache %>         
+        </div>
+
+        <div class="form-group">
+          <p>Mi avatar</p>
+          <%= image_tag current_user.avatar.thumb.url if current_user.avatar.url.present?  %>
+
+          <div>
+            <%= f.label :remove_avatar, class: "control-label" %>
+          <%= f.check_box :remove_avatar, class: "checkbox" %>
+          </div>
+
+
+        </div>
+        
+        <div class="form-group">
+          <%= f.submit "Actualizar", class: "btn btn-success" %>
+        </div>
+      <% end %>
+
+      <h3>Cancelar mi cuenta</h3>
+      <div class="form-group">
+          <p><%= button_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %></p>
+      </div>
+    </div>
+  </div>
+</div>

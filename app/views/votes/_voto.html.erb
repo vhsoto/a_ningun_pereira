@@ -1,0 +1,23 @@
+<% if policy(Vote.new).create? %>
+<br>
+<div class="row">
+	<div class="col-md-4">
+		<div class="btn-group">
+		<button type="button" class="btn">
+		<%= link_to complaint_good_path(@complaint), class: "a a-sin-decoracion", method: :post do %>
+			<i class="fa fa-thumbs-up"></i> Apoyo
+		<% end %>
+	</button>
+	<button type="button" class="btn btn-default" disabled="disabled">
+		<span class="label label-default"><%= complaint.puntos %></span>
+	</button>
+	<button type="button" class="btn">
+		<%= link_to complaint_bad_path(@complaint), class: "a a-sin-decoracion", method: :post do %>
+			<i class="fa fa-thumbs-down"></i> No apoyo
+		<% end %>
+	</button>
+	</div>
+	</div>	
+</div>
+<% end %>
+

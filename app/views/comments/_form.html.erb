@@ -1,0 +1,6 @@
+<%= form_for [@complaint, Comment.new], remote: true do |f| %>
+	<div class="form-group">	
+		<%= f.text_area :body, class: "form-control"  %>
+	</div>	
+		<%= f.submit "Crear comentario", class: "btn btn-success"%> 
+<% end %>

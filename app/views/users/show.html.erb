@@ -1,0 +1,27 @@
+
+  Estas viendo el perfil de <%= @user.name %>
+  <div class="row">
+
+    <div class="col-lg-6">
+      <h3>PÚBLICOS</h3>
+      <ul>
+      <% @complaints_public.each do |complaint| %>
+        <li>
+          <%= link_to complaint.title, complaint %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+    <% if policy(@user).update? %>
+    <div class="col-lg-6">
+      <h3>PRIVADOS</h3>
+      <ul>
+      <% @complaints_private.each do |complaint| %>
+        <li>
+          <%= link_to complaint.title, complaint %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+  </div>

@@ -1,0 +1,50 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4">
+		<p>
+			Votos acuerdo <span class="badge"><%= @complaint.votos_acuerdo %></span>
+			|
+			Votos desacuerdo <span class="badge"><%= @complaint.votos_desacuerdo %></span>
+		</p>	
+		</div>
+		<br>
+		<div class="media">
+			<div class="media-body">				
+				<small><%= image_tag @complaint.user.avatar.thumb.url, class: "img foto-perfil" if @complaint.user.avatar.url.present? %> <%= @complaint.user.name %> denunció hace <%=  time_ago_in_words(@complaint.created_at) %></small>
+				<br>				
+				<h1 class="media-heading"><%= @complaint.title %></h1>
+				<p><%= @complaint.body %></p>
+				<div>
+					<%= image_tag(@complaint.picture.large.url, class: "img foto-denuncia") if @complaint.picture.present? %>
+				</div>				
+			</div>
+			<%= render partial: "votes/voto", locals: {complaint: @complaint} %>
+			<br>
+		</div>
+		<% if policy(@complaint).update? %>
+			<%= link_to "EDITAR", edit_complaint_path(@complaint) , class: "btn btn-success" %>
+		<% end %>
+		<% if policy(@complaint).destroy? %>
+			<%= link_to "BORRAR", @complaint , method: :delete, data: {confirm: "Estas seguro que deseas eliminar esta queja?"}, class: "btn btn-danger" %>
+		 <% end %>
+	</div>	
+	<hr>
+	<h3 class="js-comments-count"><%= pluralize(@comments.count, "Comentario") %></h3>
+
+	<div class="new-comment" >
+		<% if policy(Comment.new).create? %>
+			<a href="#" class="btn btn-success" id="js-mostrar-ocultar" data-selector="js-new-comment">Nuevo comentario</a>
+			<br><br>
+			<div class="row hide js-new-comment">
+				<%= render "comments/form" %>
+			</div>
+		<% end %>
+	</div>
+
+	<div class="js-comments">
+		<%= render @comments %>
+	</div>
+
+	
+	
+</div>
